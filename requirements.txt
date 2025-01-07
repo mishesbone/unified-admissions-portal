@@ -1,3 +1,4 @@
+
 Flask
 Flask-Cors
 Flask-Migrate
@@ -5,3 +6,7 @@ SQLAlchemy
 PyJWT
 bcrypt
 flask-jwt-extended
+psycopg2
+python-dotenv
+```
+

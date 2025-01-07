@@ -17,6 +17,21 @@ def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
     app.config['JWT_SECRET_KEY'] = 'your_jwt_secret_key'  # Change to a real secret key
+    app.config['JWT_TOKEN_LOCATION'] = ['cookies']
+    app.config['JWT_COOKIE_CSRF_PROTECT'] = True
+    app.config['JWT_CSRF_CHECK_FORM'] = True
+    app.config['JWT_ACCESS_COOKIE_PATH'] = '/api/'
+    app.config['JWT_REFRESH_COOKIE_PATH'] = '/token/refresh'
+    app.config['JWT_COOKIE_SECURE'] = False
+    app.config['JWT_COOKIE_SAMESITE'] = 'Lax'
+    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = 3600  # 1 hour
+    app.config['JWT_REFRESH_TOKEN_EXPIRES'] = 2592000  # 30 days
+    app.config['JWT_CSRF_METHODS'] = ['POST', 'PUT', 'PATCH', 'DELETE']
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:admin@localhost/uap'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    
+
+    # Initialize the JWTManager with the app
     jwt.init_app(app)
 
     # Initialize extensions with the app
@@ -30,12 +45,12 @@ def create_app(config_class=Config):
 
     # Import and register blueprints
     try:
-        from app.routes.auth import auth_bp
-        from app.routes.applications import applications_bp
-        from app.routes.institutions import institutions_bp
-        from app.routes.search import search_bp
-        from app.routes.students import students_bp
-        from app.routes.admin import admin_bp
+        from routes.auth import auth_bp
+        from routes.applications import applications_bp
+        from routes.institutions import institutions_bp
+        from routes.search import search_bp
+        from routes.students import students_bp
+        from routes.admin import admin_bp
 
         
         
