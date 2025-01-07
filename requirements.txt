@@ -1,0 +1,6 @@
+Flask
+Flask-Cors
+Flask-Migrate
+SQLAlchemy
+PyJWT
+bcrypt
